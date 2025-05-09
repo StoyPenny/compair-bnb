@@ -1,0 +1,165 @@
+html body {
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(to top right, #040a08, #128861);
+}
+
+a {
+  /* color: #1f4ed1; */
+  /* color: #00b084; */
+  color: #fff;
+  text-decoration: none;
+}
+
+.MuiToolbar-regular,
+.MuiPaper-root.trip-management, 
+.MuiPaper-root.trip-view,
+.MuiPaper-root.welcome-state {
+  background: #0f0f0f;
+  box-shadow: 0px 2px 9px 0px #000000;
+  border-radius: 0.25rem;
+}
+.MuiPaper-root.airbnb-form,
+.MuiPaper-root.comparison-table {
+  background: #151515;
+  border-radius: 0.25rem;
+}
+
+
+.properties-list .airbnb-card {
+  border: none;
+  border-bottom: 0.50px solid #00b084;
+  box-shadow: -2px -2px 0px 0px rgb(148 189 179 / 36%);
+  margin: 1.2rem 0;
+  transition: all 0.36s ease-in-out;
+}
+.properties-list .airbnb-card.open {
+  box-shadow: -6px -2px 0px 0px rgb(70 160 138 / 36%);
+}
+
+.airbnb-card .airbnb-name {
+  margin-right: auto;
+  font-size: 1.2rem;
+}
+
+.rating-input {
+  column-count: 1;
+}
+
+li.my-trips-list-item {
+  padding: 0.36rem 0;
+}
+
+.MuiPaper-root.trip-management {
+  padding: 1.5rem;
+}
+
+.page-wrapper {
+  max-width: 1800px;
+  margin: 0 auto;
+}
+
+
+.airbnb-form h6 {
+  font-size: 1rem;
+  margin-bottom: 0.72rem;
+  color: rgba(255, 255, 255, 0.42);
+}
+
+
+.top-performance-airbnbs {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  margin: 3rem 0;
+}
+.top-performance-airbnbs .top-performance-airbnb {
+  /* width: 100%;
+  flex: 1 auto; */
+  width: 45%;
+  background: #151515;
+  padding: 1rem;
+  border-radius: 0.21rem;
+  margin: 1rem 0;
+  border: none;
+  border-bottom: 0.50px solid #00b084;
+  box-shadow: 0px -6px 0px 3px rgb(148 189 179 / 36%);
+}
+.top-performance-airbnb .tpa-title {
+  margin-top: 0;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.72);
+  margin: 0;
+}
+.top-performance-airbnb .tpa-subtitle {
+  text-align: center;
+  font-size: 0.81rem;
+  margin: 0;
+  color: rgba(255, 255, 255, 0.21);
+  font-weight: normal;
+}
+.top-performance-airbnb ul {
+  list-style: none;
+  margin: 1rem 0 0 0;
+  padding: 0;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-evenly;
+  text-align: center;
+}
+.top-performance-airbnb ul li {
+  width: 30%;
+}
+
+.top-performance-airbnb > div {
+  text-align: center;
+}
+.top-performance-airbnb label {
+  font-size: 0.8rem;
+  color: #869a95;
+  line-height: 1.4em;
+  display: block;
+  overflow: hidden;
+  height: 4rem;
+}
+.top-performance-airbnb .data-value {
+  font-size: 2rem;
+  color: #00b084;
+  font-weight: bold;
+}
+
+
+.new-trip-form .MuiFormControl-root {
+  margin-bottom: 1rem;
+}
+
+
+.analysis-section > div {
+  width: 600px;
+  max-width: 600px;
+  height: 100%;
+  max-height: 600px;
+  min-height: 300px;
+  margin: 3rem auto;
+}
+
+
+@media screen and (min-width: 600px) {
+  .rating-input {
+    column-count: 2;
+  }
+  
+}
+@media screen and (min-width: 960px) {
+  .rating-input {
+    column-count: 3;
+  }
+  
+}
+@media screen and (min-width: 1200px) {
+  .rating-input {
+    column-count: 4;
+  }
+  
+}
