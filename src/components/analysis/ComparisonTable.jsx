@@ -37,12 +37,13 @@ const ComparisonTable = ({
               {categories.map((category) => (
                 <TableCell key={category.name}>{category.name}</TableCell>
               ))}
-              <TableCell>Notes</TableCell>
+              
               <TableCell>Price</TableCell>
-              <TableCell>Total Stars</TableCell>
+              <TableCell style={{ minWidth: '120px' }}>Total Stars</TableCell>
               <TableCell>Price Per Star</TableCell>
               <TableCell>Weighted Stars</TableCell>
               <TableCell>CBNB Value</TableCell>
+              <TableCell style={{ minWidth: '250px' }}>Notes</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -56,14 +57,15 @@ const ComparisonTable = ({
                 {categories.map((category) => (
                   <TableCell key={category.name}>{airbnb.ratings[category.name]}</TableCell>
                 ))}
-                <TableCell>{airbnb.notes}</TableCell>
+                
                 <TableCell>${airbnb.price}</TableCell>
-                <TableCell>
+                <TableCell style={{ minWidth: '120px' }}>
                   {calculateTotalScore(airbnb)} / {categories.length * 5} ({calculateTotalScorePercentage(airbnb, categories).toFixed(0)}%)
                 </TableCell>
                 <TableCell>{calculatePricePerStar(airbnb)}</TableCell>
                 <TableCell>{calculateWeightedScore(airbnb)}</TableCell>
                 <TableCell>{cbnbRating(airbnb)}</TableCell>
+                <TableCell style={{ minWidth: '250px' }}>{airbnb.notes}</TableCell>
               </TableRow>
             ))}
           </TableBody>
