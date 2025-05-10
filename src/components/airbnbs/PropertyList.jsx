@@ -85,9 +85,6 @@ const PropertyList = ({
               />
             </Box>
           ))}
-          
-          {/* Remove the location field since it's now inline editable */}
-          
         </Box>
         <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
           <Box sx={{ mt: 3, mb: 2, width: '100%' }}>

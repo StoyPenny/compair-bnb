@@ -33,7 +33,7 @@ const SettingsModal = ({
           top: '50%',
           left: '50%',
           transform: 'translate(-50%, -50%)',
-          width: 400,
+          width: 500,
           bgcolor: 'background.paper',
           border: '2px solid #000',
           boxShadow: 24,
@@ -53,9 +53,9 @@ const SettingsModal = ({
                 label="Category Name"
                 value={category.name}
                 onChange={(e) => handleCategoryNameChange(index, e.target.value)}
-                sx={{ marginRight: 2 }}
+                sx={{ marginRight: 2, minWidth: '150px' }}
               />
-              <Box sx={{ width: 100, display: 'flex', alignItems: 'center' }}>
+              <Box sx={{ display: 'flex', alignItems: 'center', flexDirection: 'column', width: '120px' }}>
                 <Typography variant="body2" sx={{ marginRight: 1 }}>
                   Weight:
                 </Typography>
