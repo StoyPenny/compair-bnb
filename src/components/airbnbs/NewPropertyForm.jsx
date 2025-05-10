@@ -9,10 +9,12 @@ const NewPropertyForm = ({
   newAirbnbLocation,
   newAirbnbLink,
   newAirbnbPrice,
+  newAirbnbNotes,
   setNewAirbnbName,
   setNewAirbnbLocation,
   setNewAirbnbLink,
   setNewAirbnbPrice,
+  setNewAirbnbNotes,
   handleAddAirbnb
 }) => {
   const handleSubmit = () => {
@@ -78,6 +80,17 @@ const NewPropertyForm = ({
                 value={newAirbnbPrice} 
                 onChange={(e) => setNewAirbnbPrice(e.target.value)} 
                 type="number"
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField 
+                fullWidth 
+                label="Notes" 
+                value={newAirbnbNotes || ''} 
+                onChange={(e) => setNewAirbnbNotes(e.target.value)} 
+                multiline
+                rows={3}
+                placeholder="Add notes about this property..."
               />
             </Grid>
             <Grid item xs={12} display="flex" justifyContent="flex-end" mt={2}>

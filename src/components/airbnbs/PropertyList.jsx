@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Box,
   Typography,
@@ -6,12 +6,16 @@ import {
   Button,
   Collapse,
   Rating,
-  TextField
+  TextField,
+  InputAdornment
 } from '@mui/material';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import DeleteIcon from '@mui/icons-material/Delete';
 import SettingsIcon from '@mui/icons-material/Settings';
+import EditIcon from '@mui/icons-material/Edit';
+import CheckIcon from '@mui/icons-material/Check';
+import CloseIcon from '@mui/icons-material/Close';
 
 const PropertyList = ({
   airbnbs,
@@ -19,6 +23,7 @@ const PropertyList = ({
   handleToggleOpen,
   handleRatingChange,
   handleNotesChange,
+  handleLocationChange,
   handleRemoveAirbnb,
   calculateTotalScore,
   handleOpenSettings,
@@ -28,10 +33,37 @@ const PropertyList = ({
   allPropertiesOpen,
   hasModalChanges
 }) => {
+  const [editState, setEditState] = useState({
+    id: null,
+    field: null
+  });
+  const [editValue, setEditValue] = useState('');
+
+  const startEditing = (id, field, initialValue) => {
+    setEditState({ id, field });
+    setEditValue(initialValue || '');
+  };
+
+  const cancelEditing = () => {
+    setEditState({ id: null, field: null });
+  };
+
+  const saveEdit = (id, field) => {
+    if (field === 'name') {
+      // Add a handler for name changes (you'll need to implement this in the parent component)
+      // handleNameChange(id, editValue);
+      console.log('Name updated to:', editValue);
+    } else if (field === 'location') {
+      handleLocationChange(id, editValue);
+    }
+    cancelEditing();
+  };
+
   const renderRatingInputs = (airbnb) => {
     return (
       <Collapse in={airbnb.open} timeout="auto" unmountOnExit>
         <Box sx={{ margin: 2 }} className="rating-input" >
+          
           {categories.map((category) => (
             <Box
               key={category.name}
@@ -54,7 +86,11 @@ const PropertyList = ({
             </Box>
           ))}
           
-          <Box sx={{ mt: 2, mb: 1 }}>
+          {/* Remove the location field since it's now inline editable */}
+          
+        </Box>
+        <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+          <Box sx={{ mt: 3, mb: 2, width: '100%' }}>
             <Typography variant="subtitle2" sx={{ mb: 1 }}>Notes:</Typography>
             <TextField
               fullWidth
@@ -67,8 +103,6 @@ const PropertyList = ({
               size="small"
             />
           </Box>
-        </Box>
-        <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
           <IconButton onClick={() => handleRemoveAirbnb(airbnb.id)}>
             <DeleteIcon />
           </IconButton>
@@ -137,23 +171,127 @@ const PropertyList = ({
               }}
             >
               <div style={{ flexGrow: 1 }}>
-                <Typography variant="h6" component="h6" className='airbnb-name'>
-                  <a href={airbnb.link} target="_blank" rel="noopener noreferrer">
-                    {airbnb.name}
-                  </a>
-                </Typography>
-                {airbnb.location && (
-                  <Typography 
-                    variant="body2" 
-                    sx={{ 
-                      color: 'text.secondary',
-                      mt: -0.5,
-                      mb: 0.5
-                    }}
-                  >
-                    {airbnb.location}
-                  </Typography>
+                {/* Editable Name */}
+                {editState.id === airbnb.id && editState.field === 'name' ? (
+                  <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
+                    <TextField
+                      fullWidth
+                      value={editValue}
+                      onChange={(e) => setEditValue(e.target.value)}
+                      size="small"
+                      autoFocus
+                      InputProps={{
+                        endAdornment: (
+                          <InputAdornment position="end">
+                            <IconButton 
+                              edge="end" 
+                              onClick={() => saveEdit(airbnb.id, 'name')}
+                              size="small"
+                            >
+                              <CheckIcon fontSize="small" />
+                            </IconButton>
+                            <IconButton 
+                              edge="end" 
+                              onClick={cancelEditing}
+                              size="small"
+                            >
+                              <CloseIcon fontSize="small" />
+                            </IconButton>
+                          </InputAdornment>
+                        )
+                      }}
+                    />
+                  </Box>
+                ) : (
+                  <Box sx={{ display: 'flex', alignItems: 'center' }} className='airbnb-name'>
+                    <Typography variant="h6" component="h6" sx={{ mr: 1 }}>
+                      <a href={airbnb.link} target="_blank" rel="noopener noreferrer">
+                        {airbnb.name}
+                      </a>
+                    </Typography>
+                    <IconButton 
+                      size="small" 
+                      onClick={() => startEditing(airbnb.id, 'name', airbnb.name)}
+                      sx={{ p: 0.5 }}
+                    >
+                      <EditIcon fontSize="small" />
+                    </IconButton>
+                  </Box>
                 )}
+                
+                {/* Editable Location */}
+                {editState.id === airbnb.id && editState.field === 'location' ? (
+                  <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }} className='airbnb-location'>
+                    <TextField
+                      fullWidth
+                      placeholder="Add location..."
+                      value={editValue}
+                      onChange={(e) => setEditValue(e.target.value)}
+                      size="small"
+                      autoFocus
+                      InputProps={{
+                        endAdornment: (
+                          <InputAdornment position="end">
+                            <IconButton 
+                              edge="end" 
+                              onClick={() => saveEdit(airbnb.id, 'location')}
+                              size="small"
+                            >
+                              <CheckIcon fontSize="small" />
+                            </IconButton>
+                            <IconButton 
+                              edge="end" 
+                              onClick={cancelEditing}
+                              size="small"
+                            >
+                              <CloseIcon fontSize="small" />
+                            </IconButton>
+                          </InputAdornment>
+                        )
+                      }}
+                    />
+                  </Box>
+                ) : (
+                  <Box sx={{ display: 'flex', alignItems: 'center' }} className='airbnb-location'>
+                    {airbnb.location ? (
+                      <>
+                        <Typography 
+                          variant="body2" 
+                          sx={{ 
+                            color: 'text.secondary',
+                            mt: -0.5,
+                            mb: 0.5
+                          }}
+                        >
+                          {airbnb.location}
+                        </Typography>
+                        <IconButton 
+                          size="small" 
+                          onClick={() => startEditing(airbnb.id, 'location', airbnb.location)}
+                          sx={{ p: 0.5, ml: 0.5 }}
+                        >
+                          <EditIcon fontSize="small" />
+                        </IconButton>
+                      </>
+                    ) : (
+                      <Button 
+                        size="small" 
+                        startIcon={<EditIcon fontSize="small" />}
+                        onClick={() => startEditing(airbnb.id, 'location', '')}
+                        sx={{ 
+                          textTransform: 'none', 
+                          color: 'text.secondary',
+                          p: 0.5,
+                          mt: -0.5, 
+                          mb: 0.5
+                        }}
+                      >
+                        Add location
+                      </Button>
+                    )}
+                  </Box>
+                )}
+
                 {airbnb.notes && !airbnb.open && (
                   <Typography 
                     variant="body2" 

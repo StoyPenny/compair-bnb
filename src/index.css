@@ -38,8 +38,19 @@ a {
 }
 
 .airbnb-card .airbnb-name {
-  margin-right: auto;
   font-size: 1.2rem;
+}
+.airbnb-card .airbnb-location button svg,
+.airbnb-card .airbnb-name button svg {
+    max-height: 0.75em;
+    max-width: 0.75em;
+    fill: #575757;
+}
+.airbnb-location {
+    align-items: center;
+}
+.airbnb-location p {
+  margin-bottom: 0;
 }
 
 .rating-input {

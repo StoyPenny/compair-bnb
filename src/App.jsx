@@ -92,6 +92,7 @@ function App() {
   // New state for tabs
   const [activeTab, setActiveTab] = useState(0);
   const [isPropertyFormOpen, setIsPropertyFormOpen] = useState(false);
+  const [newAirbnbNotes, setNewAirbnbNotes] = useState('');
 
   const handleOpenPropertyForm = () => {
     console.log('Opening property form modal');
@@ -102,6 +103,17 @@ function App() {
     setIsPropertyFormOpen(false);
   };
 
+  // Add handler for location changes
+const handleLocationChange = (airbnbId, location) => {
+  setHasUnsavedChanges(true);
+  setAirbnbs(
+    airbnbs.map((airbnb) =>
+      airbnb.id === airbnbId
+        ? { ...airbnb, location }
+        : airbnb,
+    ),
+  );
+};
   const handleNotesChange = (airbnbId, notes) => {
     setHasUnsavedChanges(true);
     setAirbnbs(
@@ -161,7 +173,7 @@ function App() {
           acc[category.name] = 0;
           return acc;
         }, {}),
-        notes: '',
+        notes: newAirbnbNotes || '', // Include notes from the form
         open: false,
       };
       
@@ -173,7 +185,7 @@ function App() {
       if (currentTrip) {
         const updatedTrips = trips.map(trip =>
           trip.id === currentTrip.id
-                        ? { ...trip, airbnbs: updatedAirbnbs }
+            ? { ...trip, airbnbs: updatedAirbnbs }
             : trip
         );
         setTrips(updatedTrips);
@@ -185,6 +197,7 @@ function App() {
       setNewAirbnbLocation('');
       setNewAirbnbLink('');
       setNewAirbnbPrice('');
+      setNewAirbnbNotes(''); // Clear notes as well
     }
   };
   
@@ -550,6 +563,7 @@ function App() {
                     handleToggleOpen={handleToggleOpen}
                     handleRatingChange={handleRatingChange}
                     handleNotesChange={handleNotesChange}
+                    handleLocationChange={handleLocationChange} // Add this prop
                     handleRemoveAirbnb={handleRemoveAirbnb}
                     calculateTotalScore={calculateTotalScore}
                     handleOpenSettings={handleOpenSettings}
@@ -658,10 +672,12 @@ function App() {
           newAirbnbLocation={newAirbnbLocation}
           newAirbnbLink={newAirbnbLink}
           newAirbnbPrice={newAirbnbPrice}
+          newAirbnbNotes={newAirbnbNotes}
           setNewAirbnbName={setNewAirbnbName}
           setNewAirbnbLocation={setNewAirbnbLocation}
           setNewAirbnbLink={setNewAirbnbLink}
           setNewAirbnbPrice={setNewAirbnbPrice}
+          setNewAirbnbNotes={setNewAirbnbNotes}
           handleAddAirbnb={handleAddAirbnb}
         />
       </div>
