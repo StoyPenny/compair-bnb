@@ -2,6 +2,10 @@
 
 A web application that helps users compare Airbnb listings based on what they value most. Easily add and remove properties from the comparison list, modify their rankings, adjust the weights of the rankings, and compare them based on your rankings and their scores.
 
+## Screenshots
+![localhost_5173_ (7)](https://github.com/user-attachments/assets/9a1d3647-c40f-46a2-8d0a-d8065175b66b)
+
+
 ## Features
 
 - Compare multiple Airbnb listings at once
