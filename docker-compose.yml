@@ -1,0 +1,14 @@
+version: "3.9"
+
+services:
+  compair-bnb:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        PREVIEW_PORT: "${PREVIEW_PORT:-25450}"
+    ports:
+      - "${PREVIEW_PORT:-25450}:${PREVIEW_PORT:-25450}"
+    environment:
+      - PREVIEW_PORT=${PREVIEW_PORT:-25450}
+    restart: unless-stopped
